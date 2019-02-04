@@ -1,0 +1,9 @@
+class Button extends Component {
+  render() {
+    return (
+      <button {...this.props}>
+        click
+      </button>
+    );
+  }
+}
