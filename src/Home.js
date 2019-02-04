@@ -1,6 +1,33 @@
 import React, { Component } from "react";
+import UserForm from './UserForm/UserForm';
+
+class StartButton extends React.Component {
+  render() {
+    return (
+      <button {...this.props}>
+        Start Here
+      </button>
+    );
+  }
+}
 
 class Home extends Component {
+  constructor() {
+   super();
+
+   this.state = {
+     clicked: false
+   };
+
+   this.handleClick = this.handleClick.bind(this);
+ }
+
+ handleClick() {
+   this.setState({
+     clicked: true
+   });
+ }
+
   render() {
     return (
       <div>
@@ -20,6 +47,12 @@ class Home extends Component {
         Open chat is below. Please follow the rules, and let's try together to
         become the community haven that VR players need.
         </p>
+
+        <div className="formButton">
+        <button onClick={this.handleClick} > Start Here </button>
+        {this.state.clicked ? <UserForm /> : null}
+        </div>
+
       </div>
     );
   }
