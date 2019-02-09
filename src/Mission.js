@@ -3,13 +3,12 @@ import React, { Component } from "react";
 class Mission extends Component {
   render() {
     return (
-      <div>
+      <div className="theMission">
         <h2>The Mission.</h2>
         <p>
         Here, we believe that everyone is equal and are responsible for this One World.
-        We all are seeking either love, riches, power, or security. There are even
-        unfortunate few that are seeking for things that are unobtainable. Despite the
-        differences, we still find ways to share our experiences and connect. Even the most
+        We all are seeking either love, riches, power, security, or the unobtainable.
+        Despite having differences, we still find ways to share our experiences and connect. Even the most
         opposites of people uncover new looks and feelings of life that they would have
         never known otherwise. And although, we have countless mediums and channels to
         connect to each other, there are still those gaps where, someone like you or I,

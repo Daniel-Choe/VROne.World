@@ -1,6 +1,11 @@
 .UserForm {
   margin-top: 25px;
+  display: inline-block;
 }
 .ChatOpenButton {
   margin-top: 15px;
+}
+.RulesBody {
+    text-align: center;
+    font-size: 20px;
 }

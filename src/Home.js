@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import UserForm from './UserForm/UserForm';
 
-class StartButton extends React.Component {
-  render() {
-    return (
-      <button {...this.props}>
-        Start Here
-      </button>
-    );
-  }
-}
-
 class Home extends Component {
   constructor() {
    super();
@@ -30,26 +20,24 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className="theRules">
         <h2>Welcome, Player.</h2>
         <p>
         If this is your first time visiting, and you'd like to understand the reasoning
-        of this website, please visit the Mission section. And for the already initiated,
-        welcome back!
+        of this website, please visit the Mission section.
         </p>
         <p>
         VR One World is currently in it's first phase of production. It is a rudimentary
-        live chat system in which any user may post into. The objective being that a player
-        will be able to connect with another player using the website to play a multiplayer
-        Virtual Reality (VR) game, or even just to socialize and chat.
+        real time communication application where users can come together to connect online.
+        This project is built using React on the front end, and using Firebase (BaaS) to store the users' posts,
+        while the website is hosted on an AWS S3 Bucket. VROne.World is open source, and available to access publicly.
+        For more information, please head to the Contact section.
         </p>
         <p>
-        Open chat is below. Please follow the rules, and let's try together to
-        become the community haven that VR players need.
+        The chat will appear at the bottom. Please follow the rules!
         </p>
-
         <div className="formButton">
-        <button onClick={this.handleClick} > Start Here </button>
+        <button className="fbButton" onClick={this.handleClick} > Start Here </button>
         {this.state.clicked ? <UserForm /> : null}
         </div>
 

@@ -1,116 +1,123 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import './ChatRoom.css';
-
-class ClearButton extends React.Component {
-    constructor( props, context ) {
-        super( props, context );
-
-        this.handleClearMessages = this.handleClearMessages.bind( this );
-    }
-    handleClearMessages() {
-    	this.props.clearMessages();
-    }
-    render() {
-        let button = <button onClick={this.handleClearMessages} >Clear</button>;
-        if ( this.props.isDisabled ) {
-            button = <button disabled="disabled">Clear</button>;
-        }
-        return <div>{button}</div>;
-    }
-}
-
-class PostMessageForm extends React.Component {
-	constructor( props, context ) {
-		super( props, context );
-
-		this.handleSubmit = this.handleSubmit.bind( this );
-	}
-    handleSubmit( event ) {
-        event.preventDefault();
-        this.props.appendChatMessage( this.nameInput.value, this.messageInput.value );
-        this.nameInput.value = '';
-        this.messageInput.value = '';
-    }
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <input type="text"
-                       ref={name => this.nameInput = name}
-                       placeholder="Name" />
-                <input type="text"
-                       ref={message => this.messageInput = message}
-                       placeholder="Message" />
-                <input type="submit" value="Send" />
-            </form>
-        );
-    }
-}
-
-class Message extends React.Component {
-    render() {
-        let now = new Date( this.props.timestamp );
-        let hhmmss = now.toISOString().substr(11, 8);
-        return (
-            <div className="message">
-                <span className="message-time">{hhmmss}</span>&nbsp;
-                <strong className="message-owner">{this.props.owner}</strong>&nbsp;
-                <span className="message-text">{this.props.text}</span>
-            </div>
-        );
-    }
-}
-
-class MessageList extends React.Component {
-    render() {
-        return (
-            <div>
-                {
-                    this.props.messages.map( message =>
-                        <Message timestamp={message.timestamp}
-                                 owner={message.owner}
-                                 text={message.text}
-                                 key={message.id} />
-                      )
-                }
-            </div>
-        );
-    }
-}
+import firebase from './firebase/config.js';
 
 class ChatRoom extends Component {
-  constructor( props, context ) {
-        super( props, context );
-        this.state = {
-            messages: []
-        };
 
-        this.appendChatMessage = this.appendChatMessage.bind( this );
-        this.clearMessages = this.clearMessages.bind( this );
+  constructor() {
+    super();
+    this.state = {
+      playerName: '',
+      userPrefs: '',
+      userMessage: '',
+      time: firebase.database.ServerValue.TIMESTAMP,
+      allPosts: []
     }
-    appendChatMessage( owner, text ) {
-        let newMessage = {
-            id: this.state.messages.length + 1,
-            timestamp: new Date().getTime(),
-            owner: owner,
-            text: text
-        };
-        this.setState({ messages: [ ...this.state.messages, newMessage ] });
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const allPostsRef = firebase.database().ref('allPosts');
+    const post = {
+      title: this.state.playerName,
+      content: this.state.userPrefs,
+      message: this.state.userMessage,
+      timeS: firebase.database.ServerValue.TIMESTAMP
     }
-    clearMessages() {
-        this.setState( { messages: [] } );
-    }
-    render() {
-        let isDisabled = this.state.messages.length === 0;
-        return (
-            <div className="ChatRoom">
-                <MessageList messages={this.state.messages} />
-                <PostMessageForm appendChatMessage={this.appendChatMessage} />
-                <ClearButton
-                    clearMessages={this.clearMessages}
-                    isDisabled={isDisabled} />
+    allPostsRef.push(post);
+    this.setState({
+      playerName: '',
+      userPrefs: '',
+      userMessage: '',
+      time: ''
+    });
+  }
+
+  componentDidMount() {
+    const allPostsRef = firebase.database().ref('allPosts');
+    allPostsRef.on('value', (snapshot) => {
+      let allPosts = snapshot.val();
+      let newState = [];
+      for (let post in allPosts) {
+        newState.push({
+          id: post,
+          playerName: allPosts[post].title,
+          userPrefs: allPosts[post].content,
+          userMessage: allPosts[post].message,
+          time: allPosts[post].timeS
+        });
+      }
+      this.setState({
+        allPosts: newState
+      });
+    });
+  }
+
+  removeItem(postId) {
+    const postRef = firebase.database().ref(`/allPosts/${postId}`);
+    postRef.remove();
+  }
+
+  render() {
+    return (
+      <div className="messageForm">
+        <div className="all_chat">
+          <div className="all_chat__header">
+            <img src="https://s3.amazonaws.com/vrone.world/vroneworld-chat.jpg" className="all-channel__logo" alt="logo" />
+            <div className='app'>
+              <header>
+                  <div className='wrapper'>
+                    <h1>Enter a Post Below.</h1>
+                  </div>
+              </header>
+              <h2>
+              <br />
+              ALL GAMES CHANNEL.
+              </h2>
+              <div className='container'>
+                  <section className='add-post'>
+                      <form onSubmit={this.handleSubmit}>
+                        <input type="text" name="playerName" placeholder="Player Name" onChange={this.handleChange} value={this.state.playerName}/>
+                        <input type="text" name="userPrefs" placeholder="Systems | Games" onChange={this.handleChange} value={this.state.userPrefs}  />
+                        <input type="text" name="userMessage" placeholder="Message - Remember Rule #1!" onChange={this.handleChange} value={this.state.userMessage}  />
+                        <button>Post!</button>
+                      </form>
+                  </section>
+                  <section className='display-post'>
+                    <div className="wrapper">
+                      <ul>
+                        {this.state.allPosts.map((post) => {
+                          return (
+                            <li key={post.id}>
+                              <h3>{post.playerName}</h3>
+                              <p>{post.userPrefs} </p>
+                              <p>{post.userMessage} </p>
+                              <p>{post.time}
+                                <button onClick={() => this.removeItem(post.id)}>Remove Post</button>
+                              </p>
+                              <p>  </p>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                </section>
+                </div>
+              </div>
             </div>
-        );
-    }
+          </div>
+      </div>
+    );
+  }
+
 }
 
 export default ChatRoom;

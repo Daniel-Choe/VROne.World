@@ -13,9 +13,14 @@ class Main extends Component {
     return (
       <HashRouter>
         <div>
+          <header className="homeHeader">
           <h1 className="vrOneWorldTitle">VR One World.</h1>
+          <a href="index.html">
+            <img className="figure" src="https://s3.amazonaws.com/vrone.world/logo.png" alt="logo"/>
+          </a>
+          </header>
           <ul className="header">
-            <li><NavLink exact to="/">Home</NavLink></li>
+            <li><NavLink exact to="/">Seekers</NavLink></li>
             <li><NavLink to="/mission">Mission</NavLink></li>
             <li><NavLink to="/contact">Contact</NavLink></li>
           </ul>

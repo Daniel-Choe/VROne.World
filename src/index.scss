@@ -32,10 +32,56 @@ ul.header li a {
 .content h2 {
   padding: 0;
   margin: 0;
+  font-size: 30px;
+  text-align: center;
 }
 .content li {
   margin-bottom: 10px;
 }
 .vrOneWorldTitle {
   color: #FFF;
+}
+.homeHeader img {
+  position: relative;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 120px;
+  height: 100px;
+}
+.homeHeader h1 {
+  display: inline;
+  text-align: center;
+  border: 3px solid #828282;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px #828282;
+}
+header.homeHeader {
+    text-align: center;
+    letter-spacing: 1px;
+    height: 5em;
+    padding: 2em 10%;
+}
+.figure {
+    vertical-align:middle;
+}
+button {
+  border-radius: 2px;
+  min-width: 88px;
+  background-color: #FA6900;
+  cursor: pointer;
+  border: 0;
+  min-width: 120px;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  padding: 10px 6px;
+}
+.theRules p {
+  font-size: 20px;
+}
+.theMission p {
+  font-size: 20px;
+}
+.contact p {
+  font-size: 20px;
 }

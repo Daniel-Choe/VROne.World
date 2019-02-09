@@ -2,16 +2,6 @@ import React, { Component } from "react";
 import './UserForm.css';
 import ChatRoom from '../ChatRoom/ChatRoom';
 
-class ChatOpenButton extends React.Component {
-  render() {
-    return (
-      <button {...this.props}>
-        Chat Open
-      </button>
-    );
-  }
-}
-
 class UserForm extends Component {
 
   constructor() {
@@ -32,7 +22,7 @@ class UserForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="RulesBody">
         <form className="UserForm">
           <table rules="rows">
             <tr>
@@ -45,7 +35,7 @@ class UserForm extends Component {
               <td>2. Be kind to another, and watch the language. Harrassment of any kind will not be tolerated.</td>
             </tr>
             <tr>
-              <td>3. Try to follow an easy commenting format (Game|User Name|Stuff).</td>
+              <td>3. Please remove your post after you have found your team.</td>
             </tr>
             <tr />
           </table>
