@@ -103,7 +103,6 @@ class ChatRoom extends Component {
                               <p>{post.time}
                                 <button onClick={() => this.removeItem(post.id)}>Remove Post</button>
                               </p>
-                              <p>  </p>
                             </li>
                           )
                         })}
