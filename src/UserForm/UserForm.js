@@ -14,7 +14,9 @@ class UserForm extends Component {
    this.handleClick = this.handleClick.bind(this);
  }
 
- handleClick() {
+ handleClick(e) {
+   e.preventDefault();
+
    this.setState({
      clicked: true
    });
