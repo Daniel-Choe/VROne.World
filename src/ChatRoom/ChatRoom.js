@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './ChatRoom.css';
 import firebase from './firebase/config.js';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 class ChatRoom extends Component {
 
@@ -100,7 +102,7 @@ class ChatRoom extends Component {
                               <h3>{post.playerName}</h3>
                               <p>{post.userPrefs} </p>
                               <p>{post.userMessage} </p>
-                              <p>{post.time}
+                              <p><Moment date={post.time}/>
                                 <button onClick={() => this.removeItem(post.id)}>Remove Post</button>
                               </p>
                             </li>
