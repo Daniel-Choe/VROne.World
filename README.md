@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project cam be seen live at http://www.vrone.world
+
+Please note that this project will not run locally unless providing a valid firebase config file. Thank you.
 
 ## Available Scripts
 
