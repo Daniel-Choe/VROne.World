@@ -1,4 +1,4 @@
-This project cam be seen live at http://www.vrone.world
+This project can be seen live at http://www.vrone.world
 
 Please note that this project will not run locally unless providing a valid firebase config file. Thank you.
 
